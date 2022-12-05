@@ -13,7 +13,7 @@ const Index = () => {
             <hi className="text-white pt-64 origin-center duration-300 font-medium text-3xl flex justify-center items-center">
               Добро пожаловать!
             </hi>
-            <h2 className="text-white origin-center pt-3 duration-300 font-medium text-2xl flex justify-center items-center">
+            <h2 className="text-white origin-center pt-3 text-center duration-300 font-medium text-xl flex justify-center items-center">
               EGE.ONLINE — сайт с полезными материалами ЕГЭ
             </h2>
           </div>
