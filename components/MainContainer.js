@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import { SiS7Airlines, SiTelegram } from "react-icons/si";
+import { SlSocialVkontakte } from "react-icons/sl";
 import {
   BsArrowLeftShort,
   BsSearch,
@@ -34,10 +36,10 @@ const MainContainer = ({ children, keywords }) => {
         <meta keywords={keywords}></meta>
         <title>EGE.onlne</title>
       </Head>
-      <div className="flex">
+      <div className="absolute inset-0 flex">
         <div
           className={`bg-dark-purple sticky left-0 top-0 h-screen p-5 pt-8 ${
-            open ? "w-64" : "w-20 h-24"
+            open ? "w-full" : "w-20 h-24"
           } duration-200 relative`}
         >
           <AiOutlineMenuFold
@@ -118,10 +120,28 @@ const MainContainer = ({ children, keywords }) => {
               </>
             ))}
           </ul>
+          <h1 className={`text-white pt-6 origin-center text-center duration-300 font-medium text-2xl ${
+                    !open && "hidden"
+                  }`}>Контакты</h1>
+          <div className={`flex flex-1 justify-center duration-300 mx-2 pt-3 gap-3 ${
+                    !open && "hidden"
+                  }`}>
+          <Link href="https://t.me/suprabots" className=" text-white
+          text-3xl rounded border border-dark-purple
+          cursor-pointer">
+            <SiTelegram className=" text-sky-500" />
+          </Link>
+          <Link href="https://vk.com" className=" text-white
+          text-3xl rounded bottom-96 border border-dark-purple
+          cursor-pointer">
+            <SlSocialVkontakte className=" text-sky-500" />
+          </Link>
+          </div>
+          
         </div>
       </div>
 
-      <div>{children}</div>
+      <div className="flex">{children}</div>
     </>
   );
 };
