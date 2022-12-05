@@ -1,53 +1,119 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
+import {
+  BsArrowLeftShort,
+  BsSearch,
+  BsChevronDown,
+  BsJournalBookmarkFill,
+} from "react-icons/bs";
+import { VscBook } from "react-icons/vsc";
+import { RxDashboard } from "react-icons/rx";
+import { AiOutlineMenuFold } from "react-icons/ai";
 
 const MainContainer = ({ children, keywords }) => {
+  const [open, setOpen] = useState(true);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const Menu = [
+    { title: "Главная" },
+    {
+      title: "Предметы",
+      submenu: true,
+      icon: <BsJournalBookmarkFill />,
+      submenuItems: [
+        { title: "Русский язык" },
+        { title: "Математика" },
+        { title: "Обществознание" },
+      ],
+    },
+  ];
+
   return (
     <>
       <Head>
         <meta keywords={keywords}></meta>
         <title>EGE.onlne</title>
       </Head>
-      <div className="py-4 px-72 flex justify-between text-white font-custom bg-[#242F3D]">
-        <h1 className="py-1 text-xl">EGE.ONLINE</h1>
-        <ul className=" hidden xl:flex justify-end gap-4">
-        <Link
-              href='/russian'
-              class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+      <div className="flex">
+        <div
+          className={`bg-dark-purple h-screen p-5 pt-8 ${
+            open ? "w-72" : "w-20"
+          } duration-200 relative`}
+        >
+          <AiOutlineMenuFold
+            className={`bg-transparent text-white
+          text-3xl rounded absolute right-6 top-9 border border-dark-purple
+          cursor-pointer ${!open && "rotate-180"}`}
+            onClick={() => setOpen(!open)}
+          />
+          <div className="inline-flex">
+            <h1
+              className={`text-white origin-center duration-300 font-medium text-3xl ${
+                !open && "scale-0"
+              }`}
             >
-              Русский язык
-            </Link>
-          <Link
-              href='/math'
-              class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              Математика
-            </Link>
-            <Link
-              href='/social'
-              class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              Обществознание
-            </Link>
-        </ul>
-        <button class="inline-block xl:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+              EGE.ONLINE
+            </h1>
+          </div>
+          <div
+            className={`flex items-center rounded-md bg-light-white mt-6 py-2 ${
+              !open ? "px-2.5" : "px-4"
+            }`}
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
+            <BsSearch className={`text-white text-lg block float-left cursor-pointer ${open && "mr-2"}`} />
+            <input
+              type={"search"}
+              placeholder="Искать"
+              className={`text-base bg-transparent w-full duration-500 focus:outline-none text-white ${
+                !open && "hidden"
+              }`}
             />
-          </svg>
-        </button>
+          </div>
+          <ul>
+            {Menu.map((menu, index) => (
+              <>
+                <li
+                  key={index}
+                  className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white
+              rounded-md ${menu.spacing ? "mt-9" : "mt-2"}`}
+                >
+                  <span className="text-2xl block float-left">
+                    {menu.icon ? menu.icon : <RxDashboard />}
+                  </span>
+                  <span
+                    className={`text-base font-custom flex-1 duration-200 ${
+                      !open && "hidden"
+                    }`}
+                  >
+                    {menu.title}
+                  </span>
+                  {menu.submenu && open && (
+                    <BsChevronDown
+                      className={`${submenuOpen && "rotate-180"}`}
+                      onClick={() => {
+                        setSubmenuOpen(!submenuOpen);
+                      }}
+                    />
+                  )}
+                </li>
+                {menu.submenu && submenuOpen && open && (
+                  <ul>
+                    {menu.submenuItems.map((submenuItem, index) => (
+                      <li
+                        className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white
+                      rounded-md px-5"
+                      >
+                        {submenuItem.title}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ))}
+          </ul>
+        </div>
       </div>
-      
+
       <div>{children}</div>
     </>
   );
