@@ -36,9 +36,9 @@ const MainContainer = ({ children, keywords }) => {
       </Head>
       <div className="flex">
         <div
-          className={`bg-dark-purple h-screen p-5 pt-8 ${
+          className={`bg-dark-purple sticky left-0 top-0 h-screen p-5 pt-8 ${
             open ? "w-64" : "w-20"
-          } duration-200 relative`}
+          } ${!open && "hidden"} duration-200 relative`}
         >
           <AiOutlineMenuFold
             className={`bg-transparent text-white
@@ -60,7 +60,11 @@ const MainContainer = ({ children, keywords }) => {
               !open ? "px-2.5" : "px-4"
             }`}
           >
-            <BsSearch className={`text-white text-lg block float-left cursor-pointer ${open && "mr-2"}`} />
+            <BsSearch
+              className={`text-white text-lg block float-left cursor-pointer ${
+                open && "mr-2"
+              }`}
+            />
             <input
               type={"search"}
               placeholder="Искать"
@@ -75,7 +79,9 @@ const MainContainer = ({ children, keywords }) => {
                 <li
                   key={index}
                   className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white
-              rounded-md ${menu.spacing ? "mt-9" : "mt-2"} ${!open && "hover:cursor-default"}`}
+              rounded-md ${menu.spacing ? "mt-9" : "mt-2"} ${
+                    !open && "hover:cursor-default"
+                  }`}
                 >
                   <span className="text-2xl block float-left">
                     {menu.icon ? menu.icon : <RxDashboard />}
@@ -99,7 +105,8 @@ const MainContainer = ({ children, keywords }) => {
                 {menu.submenu && submenuOpen && open && (
                   <ul>
                     {menu.submenuItems.map((submenuItem, index) => (
-                      <li key={index}
+                      <li
+                        key={index}
                         className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white
                       rounded-md px-5"
                       >
@@ -111,6 +118,18 @@ const MainContainer = ({ children, keywords }) => {
               </>
             ))}
           </ul>
+        </div>
+        <div className="flex-1">
+          
+          <header className={`sticky left-0 top-0 h-20 duration-300 bg-dark-purple ${open && ""}`}>
+          <AiOutlineMenuFold
+            className={`bg-transparent text-white
+          text-4xl rounded absolute left-4 top-[25px] border border-dark-purple
+          cursor-pointer ${!open ? "rotate-180" : "hidden"}`}
+            onClick={() => setOpen(!open)}
+          />
+            <h1 className={`text-white text-center duration-300 pt-6 font-medium text-3xl ${open && "hidden duration-200"}`}>EGE.ONLINE</h1>
+          </header>
         </div>
       </div>
 
