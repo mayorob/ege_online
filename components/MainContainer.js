@@ -12,7 +12,7 @@ import { RxDashboard } from "react-icons/rx";
 import { AiOutlineMenuFold } from "react-icons/ai";
 
 const MainContainer = ({ children, keywords }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const Menu = [
     { title: "Главная" },
@@ -37,7 +37,7 @@ const MainContainer = ({ children, keywords }) => {
       <div className="flex">
         <div
           className={`bg-dark-purple h-screen p-5 pt-8 ${
-            open ? "w-72" : "w-20"
+            open ? "w-64" : "w-20"
           } duration-200 relative`}
         >
           <AiOutlineMenuFold
@@ -75,7 +75,7 @@ const MainContainer = ({ children, keywords }) => {
                 <li
                   key={index}
                   className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white
-              rounded-md ${menu.spacing ? "mt-9" : "mt-2"}`}
+              rounded-md ${menu.spacing ? "mt-9" : "mt-2"} ${!open && "hover:cursor-default"}`}
                 >
                   <span className="text-2xl block float-left">
                     {menu.icon ? menu.icon : <RxDashboard />}
